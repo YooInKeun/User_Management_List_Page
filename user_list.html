@@ -17,27 +17,45 @@
     <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>Any_X DEMO</title>
+
+    <style>
+        .page-title {
+            margin-top: 20px;
+        }
+        
+        .from-rounded {
+            border-radius: 5px;
+        }
+
+        .excel-btn {
+            float:right;
+        }
+
+        input {
+            margin: 0.4rem;
+        }
+    </style>
 </head>
 <body>
-    <div id="app">
-        <div>
+    <div id="app" class="container">
+        <div class="page-title">
             <h2>회원 리스트</h2>
         </div>
 
-        <div class="search_top">
-            <div class="input_wrap">
-                <span>
-                    <strong>유저 네임</strong>
-                    <input type="text">
+        <div class="search-top">
+            <div class="input-wrap form-inline" >
+                <span class="form-inline">
+                    <label for="user-name">유저 네임</label>
+                    <input type="text" id="user-name" class="form-control form-rounded" style="width:200px;" placeholder="이름">
                 </span>
-                <span class="calendar_range">
-                    <strong>가입일</strong>
+                <span class="calendar-range form-inline">
+                    <label for="sign-in-date">가입일</label>
                     <span>
-                        <input type="text" placeholder="YYYY-MM-DD">
+                        <input type="text" id="sign-in-date" class="form-control form-rounded" style="width:200px;" placeholder="YYYY-MM-DD">
                     </span>
                     <span>~</span>
                     <span>
-                        <input type="text"  class="range_end" placeholder="YYYY-MM-DD">
+                        <input type="text" class="form-control form-rounded" style="width:200px;" placeholder="YYYY-MM-DD">
                     </span>
                     
                     <button type="button">1M</button>
@@ -47,20 +65,20 @@
             </div>
         </div>
 
-        <div class="search_btm">
+        <div class="search-btm">
             <form name="form" class="form" role="form">
-                <div class="input_wrap">
-                    <span>
-                        <strong>유저아이디</strong>
-                        <input type="text">
+                <div class="input-wrap form-inline">
+                    <span class="form-inline">
+                        <label for="user-id">유저 아이디</label>
+                        <input type="text" id="user-id" class="form-control form-rounded" style="width:200px;" placeholder="아이디">
                     </span>
-                    <span>
-                        <strong>연락처</strong>
-                        <input type="text">
+                    <span class="form-inline">
+                        <label for="phone">연락처</label>
+                        <input type="text" id="phone" class="form-control form-rounded" style="width:200px;" placeholder="연락처">
                     </span>
-                    <span>
-                        <strong>나이</strong>
-                        <input type="text">
+                    <span class="form-inline">
+                        <label for="age">나이</label>
+                        <input type="text" id="age" class="form-control form-rounded" style="width:200px;" placeholder="나이">
                     </span>
 
                     <button type="button">검색</button>
@@ -72,19 +90,17 @@
             <a href="">엑셀 다운</a>
         </div>
 
-        <div class="search_result">
-            <div class="select_box">
-                <button class="btn_select" type="button">10</button>
-                <ul>
-                    <li><button type="button">10</button></li>
-                    <li><button type="button">25</button></li>
-                    <li><button type="button">50</button></li>
-                    <li><button type="button">100</button></li>
-                </ul>
-            </div>
+        <div class="select-box">
+            <button class="btn-select" type="button">10</button>
+            <ul>
+                <li><button type="button">10</button></li>
+                <li><button type="button">25</button></li>
+                <li><button type="button">50</button></li>
+                <li><button type="button">100</button></li>
+            </ul>
         </div>
         
-        <div class="tbl_wrap tbl_list mt30 tbl_col">
+        <div>
             <table>
                 <colgroup>
 					<col style="width:6%;">
@@ -100,27 +116,26 @@
                 <thead>
 					<tr>
 						<th>NO</th>
-						<th><button type="button" class="btn_sort"></button>작성자</th>
-						<th><button type="button" class="btn_sort"></button>유저아이디</th>
-						<th><button type="button" class="btn_sort"></button>가입일</th>
-						<th><button type="button" class="btn_sort"></button>연락처</th>
-						<th><button type="button" class="btn_sort"></button>나이</th>
-						<th><button type="button" class="btn_sort"></button>주소</th>
-						<th><button type="button" class="btn_sort"></button>조회수</th>
+						<th><button type="button" class="btn-sort"></button>작성자</th>
+						<th><button type="button" class="btn-sort"></button>유저아이디</th>
+						<th><button type="button" class="btn-sort"></button>가입일</th>
+						<th><button type="button" class="btn-sort"></button>연락처</th>
+						<th><button type="button" class="btn-sort"></button>나이</th>
+						<th><button type="button" class="btn-sort"></button>주소</th>
+						<th><button type="button" class="btn-sort"></button>조회수</th>
 					</tr> 
                 </thead>
                 <tbody>
                     <tr class="tr"
-                        v-for="user in users"
-                        current-page="currentPage">
+                        v-for="user in users">
                         <td class="td in01">{{user.user_seq}}</td>
                         <td class="td in02">{{user.user_name}}</td>
-                        <td class="td in03 numData deco_bor tl" ng-click="call_user_detail(user)">{{user.user_id}}</td>
+                        <td class="td in03">{{user.user_id}}</td>
                         <td class="td in04">{{user.create_dt |date:date_view_s}}</td>
-                        <td class="td in05 numData">{{user.tel}}</td>
-                        <td class="td in06 numData">{{user.age}}</td>
-                        <td class="td in07 numData">{{user.address}}</td>
-                        <td class="td in08 numData">{{user.cnt}}</td>	
+                        <td class="td in05 num-data">{{user.tel}}</td>
+                        <td class="td in06 num-data">{{user.age}}</td>
+                        <td class="td in07 num-data">{{user.address}}</td>
+                        <td class="td in08 num-data">{{user.cnt}}</td>	
                     </tr>
                 </tbody>
             </table>
