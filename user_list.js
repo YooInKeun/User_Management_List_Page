@@ -6,10 +6,10 @@ var vm = new Vue({
         users: [],
     },
     created: function () {
-        this.fetch_all_todo();
+        this.fetch_all_user();
     },
     methods: {
-        fetch_all_todo: function () {
+        fetch_all_user: function () {
             var vm = this;
             var tmpCondition = '?age=&end_dt=&pageCon=10&pageNum=1&start_dt=&tel=&userSortDirection=ASC&userSortItem=user_seq&user_id=&user_name=&view_cnt=';
             
